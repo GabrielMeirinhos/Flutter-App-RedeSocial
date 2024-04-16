@@ -1,0 +1,9 @@
+widget -> stores -> usecases -> repository(domain), na vdd é só um abstração -> repository(data) -> comunica com o datasource
+
+datasource -> entitie -> model(implementa o entitie)
+
+repository(data) -> repository (domain abstração)
+
+usecase (o que o cara pode fazer na tela (chamar mais post, entrar no perfil, mudar o modo(dart ou white))) -> regra de negocios (tratamentos)
+
+nav bar (pra ajudar lucas)
