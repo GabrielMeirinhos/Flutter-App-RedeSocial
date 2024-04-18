@@ -40,7 +40,7 @@ class HomePage extends StatelessWidget {
               const SizedBox(height: 20),
               ElevatedButton(
                 onPressed: () {
-                  Modular.to.navigate('/secund');
+                  Modular.to.navigate('/feed');
                 },
                 child: const Text('Logar'),
               ),
@@ -51,7 +51,7 @@ class HomePage extends StatelessWidget {
                 onPressed: () {
                   if (1 == 1) {
                     //TODO: criar modo de verificação
-                    Modular.to.navigate('/register');
+                    Modular.to.navigate('/');
                   }
                 },
                 child: const Text('Registrar'),

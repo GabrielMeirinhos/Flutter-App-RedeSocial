@@ -7,7 +7,7 @@ import 'package:flutter_application/src/feed/domain/repositories/feed_repositore
 class PostRepositoryImpl implements IFeedRepository {
   final IPostSource postSource;
 
-  PostRepositoryImpl({required this.postSource});
+  PostRepositoryImpl(this.postSource);
 
   @override
   Future<List<Post>> getPost() async {

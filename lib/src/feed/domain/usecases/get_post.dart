@@ -6,7 +6,7 @@ class GetPostUseCase {
 
   final List listPost = [];
 
-  GetPostUseCase({required this.repository});
+  GetPostUseCase();
 
   Future getPostUseCase() async {
     final List<Post>? list = await repository?.getPost();
