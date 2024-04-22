@@ -9,35 +9,35 @@ part of 'feed_stores.dart';
 // ignore_for_file: non_constant_identifier_names, unnecessary_brace_in_string_interps, unnecessary_lambdas, prefer_expression_function_bodies, lines_longer_than_80_chars, avoid_as, avoid_annotating_with_dynamic, no_leading_underscores_for_local_identifiers
 
 mixin _$FeedStore on _FeedStore, Store {
-  late final _$listStateAtom =
-      Atom(name: '_FeedStore.listState', context: context);
+  late final _$feedStateAtom =
+      Atom(name: '_FeedStore.feedState', context: context);
 
   @override
-  List<Post> get listState {
-    _$listStateAtom.reportRead();
-    return super.listState;
+  FeedState get feedState {
+    _$feedStateAtom.reportRead();
+    return super.feedState;
   }
 
   @override
-  set listState(List<Post> value) {
-    _$listStateAtom.reportWrite(value, super.listState, () {
-      super.listState = value;
+  set feedState(FeedState value) {
+    _$feedStateAtom.reportWrite(value, super.feedState, () {
+      super.feedState = value;
     });
   }
 
-  late final _$isLoadingAtom =
-      Atom(name: '_FeedStore.isLoading', context: context);
+  late final _$listPostAtom =
+      Atom(name: '_FeedStore.listPost', context: context);
 
   @override
-  bool get isLoading {
-    _$isLoadingAtom.reportRead();
-    return super.isLoading;
+  List<Post> get listPost {
+    _$listPostAtom.reportRead();
+    return super.listPost;
   }
 
   @override
-  set isLoading(bool value) {
-    _$isLoadingAtom.reportWrite(value, super.isLoading, () {
-      super.isLoading = value;
+  set listPost(List<Post> value) {
+    _$listPostAtom.reportWrite(value, super.listPost, () {
+      super.listPost = value;
     });
   }
 
@@ -45,15 +45,15 @@ mixin _$FeedStore on _FeedStore, Store {
       AsyncAction('_FeedStore.getPost', context: context);
 
   @override
-  Future<dynamic> getPost() {
+  Future<void> getPost() {
     return _$getPostAsyncAction.run(() => super.getPost());
   }
 
   @override
   String toString() {
     return '''
-listState: ${listState},
-isLoading: ${isLoading}
+feedState: ${feedState},
+listPost: ${listPost}
     ''';
   }
 }

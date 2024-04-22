@@ -2,19 +2,19 @@ import 'package:flutter_application/src/feed/domain/entities/feed_entities.dart'
 import 'package:flutter_application/src/feed/domain/repositories/feed_repositore.dart';
 
 class GetPostUseCase {
-  IFeedRepository? repository;
+  final IFeedRepository repository;
 
-  final List listPost = [];
+  GetPostUseCase(this.repository);
 
-  GetPostUseCase();
-
-  Future getPostUseCase() async {
-    final List<Post>? list = await repository?.getPost();
-    if (list != null) {
-      for (int i = 0; i < 15; i++) {
-        listPost.add(list[i]);
-      }
+  Future<List<Post>> getPostUseCase() async {
+    try {
+      final List<Post> list = await repository.getPost();
+      // Limita a lista de posts para conter no máximo 15 posts
+      return list.take(15).toList();
+    } catch (e) {
+      // Trata qualquer erro ao buscar os posts
+      print('Erro ao buscar posts: $e');
+      return []; // Retorna uma lista vazia em caso de erro
     }
-    return listPost;
   }
 }

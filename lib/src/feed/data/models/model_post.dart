@@ -1,4 +1,5 @@
 import 'package:flutter_application/src/feed/domain/entities/feed_entities.dart';
+// ignore: depend_on_referenced_packages
 import 'package:json_annotation/json_annotation.dart';
 
 part 'model_post.g.dart';

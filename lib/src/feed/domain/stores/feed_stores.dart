@@ -1,6 +1,8 @@
 import 'package:flutter_application/src/feed/domain/entities/feed_entities.dart';
 import 'package:flutter_application/src/feed/domain/errors/feed_error.dart';
+import 'package:flutter_application/src/feed/domain/states/feed_state.dart';
 import 'package:flutter_application/src/feed/domain/usecases/get_post.dart';
+import 'package:flutter_modular/flutter_modular.dart';
 import 'package:mobx/mobx.dart';
 
 part 'feed_stores.g.dart';
@@ -8,22 +10,26 @@ part 'feed_stores.g.dart';
 class FeedStore = _FeedStore with _$FeedStore;
 
 abstract class _FeedStore with Store {
-  GetPostUseCase? _getPostUseCase;
+  final _getPostUseCase = Modular.get<GetPostUseCase>();
 
   @observable
-  List<Post> listState = ObservableList<Post>();
+  FeedState feedState = InicialState();
 
   @observable
-  bool isLoading = false;
+  List<Post> listPost = ObservableList<Post>();
 
   @action
-  Future getPost() async {
-    isLoading = true;
+  Future<void> getPost() async {
+    feedState = LoadingState();
     try {
-      listState = await _getPostUseCase?.getPostUseCase();
+      listPost = await _getPostUseCase.getPostUseCase();
+      if (listPost.isEmpty) {
+        feedState = EmptyState();
+      } else {
+        feedState = SucessState(listPost);
+      }
     } on ErroState catch (e) {
-      throw Exception(e);
+      feedState = FeedStateErro(e);
     }
-    isLoading = false;
   }
 }

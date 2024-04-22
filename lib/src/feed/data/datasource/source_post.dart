@@ -1,14 +1,15 @@
 import 'package:flutter_application/core/data/dio/client_dio.dart';
 import 'package:flutter_application/src/feed/data/errors/erros_post.dart';
+import 'package:flutter_modular/flutter_modular.dart';
 
 abstract class IPostSource {
   Future<List<dynamic>> getPostData();
 }
 
 class PostSource implements IPostSource {
-  final IDioClient client;
+  final client = Modular.get<IDioClient>();
 
-  PostSource({required this.client});
+  PostSource();
 
   @override
   Future<List<dynamic>> getPostData() async {

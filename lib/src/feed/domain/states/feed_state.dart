@@ -1,15 +1,22 @@
 import 'package:flutter_application/src/feed/domain/entities/feed_entities.dart';
+import 'package:flutter_application/src/feed/domain/errors/feed_error.dart';
 
 abstract class FeedState {}
 
-class ErroState implements FeedState {
+class FeedStateErro implements FeedState {
   final ErroState erroState;
 
-  ErroState(this.erroState);
+  FeedStateErro(this.erroState);
 }
 
-class ModelPostListState implements FeedState {
-  final List<Post> postList;
+class SucessState implements FeedState {
+  final List<Post>? postList;
 
-  ModelPostListState(this.postList);
+  SucessState(this.postList);
 }
+
+class LoadingState implements FeedState {}
+
+class InicialState implements FeedState {}
+
+class EmptyState implements FeedState {}

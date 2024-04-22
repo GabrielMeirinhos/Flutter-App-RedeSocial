@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_application/src/feed/domain/usecases/get_post.dart';
+import 'package:flutter_application/src/feed/domain/states/feed_state.dart';
+import 'package:flutter_application/src/feed/domain/stores/feed_stores.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
+import 'package:flutter_modular/flutter_modular.dart';
 
 class FeedBody extends StatefulWidget {
   const FeedBody({super.key});
@@ -10,30 +12,35 @@ class FeedBody extends StatefulWidget {
 }
 
 class _FeedBodyState extends State<FeedBody> {
-  final GetPostUseCase _postUseCase = GetPostUseCase();
+  final _feedStore = Modular.get<FeedStore>();
+
   @override
   void initState() {
     super.initState();
-    _postUseCase.getPostUseCase();
+    _feedStore.getPost();
   }
 
   @override
   Widget build(BuildContext context) {
-    Observer(
+    return Observer(
       builder: (_) {
-        if (_postUseCase.isLoading) {
+        if (_feedStore.feedState is LoadingState) {
           return const Center(
             child: CircularProgressIndicator(),
           );
-        } else if (_postStore.erro.isNotEmpty) {
-          return Center(
-            child: Text(_postStore.erro),
+        } else if (_feedStore.feedState is FeedStateErro) {
+          return const Center(
+            child: Text('Erro de carregamento'),
+          );
+        } else if (_feedStore.feedState is EmptyState) {
+          return const Center(
+            child: Text('Lista vazia'),
           );
         } else {
           return ListView.builder(
-            itemCount: _postStore.state.length,
+            itemCount: _feedStore.listPost.length,
             itemBuilder: (context, index) {
-              final itemPost = _postStore.state[index];
+              final itemPost = _feedStore.listPost[index];
               return Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
@@ -73,6 +80,5 @@ class _FeedBodyState extends State<FeedBody> {
         }
       },
     );
-    throw UnimplementedError();
   }
 }

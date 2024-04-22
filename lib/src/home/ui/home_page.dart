@@ -49,10 +49,8 @@ class HomePage extends StatelessWidget {
               ),
               ElevatedButton(
                 onPressed: () {
-                  if (1 == 1) {
-                    //TODO: criar modo de verificação
-                    Modular.to.navigate('/');
-                  }
+                  //TODO: criar modo de verificação
+                  Modular.to.navigate('/');
                 },
                 child: const Text('Registrar'),
               ),
