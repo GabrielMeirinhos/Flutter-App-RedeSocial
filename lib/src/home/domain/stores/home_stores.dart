@@ -1,4 +1,5 @@
 import 'package:flutter/cupertino.dart';
+import 'package:flutter_application/src/home/domain/erros/home_erros.dart';
 import 'package:flutter_application/src/home/domain/states/home_state.dart';
 import 'package:flutter_application/src/home/domain/usecases/logincase.dart';
 import 'package:flutter_application/src/home/domain/usecases/register_validators.dart';
@@ -11,13 +12,14 @@ part 'home_stores.g.dart';
 class HomeStore = _HomeStore with _$HomeStore;
 
 abstract class _HomeStore with Store {
-  final loginValidator = Modular.get<ILoginValidator>();
-  final controllerEmail = Modular.get<TextEditingController>();
-  final controllerPassword = Modular.get<TextEditingController>();
+  final _loginValidator = Modular.get<ILoginValidator>();
   final _validator = Modular.get<IValidator>();
 
+  final controllerEmail = TextEditingController();
+  final controllerPassword = TextEditingController();
+
   @observable
-  HomeState homeState = LoginState();
+  HomeState homeState = LoginPageState();
 
   @observable
   bool isWidgetLogin = true;
@@ -30,22 +32,30 @@ abstract class _HomeStore with Store {
 
   @action
   turnRegister() {
-    homeState = RegisterState();
+    homeState = RegisterPageState();
   }
 
   @action
   turnLogin() {
-    homeState = LoginState();
+    homeState = LoginPageState();
   }
 
   @action
   turnLogged() {
     homeState = LoadingHomeState();
+    try {
+      validator = _loginValidator.validateLoginCredentials(
+          email: controllerEmail.text, password: controllerPassword.text);
+    } on HomeErrorValidatorController catch (e) {
+      // ignore: avoid_print
+      print(e);
+      homeState = LoginPageState();
+    }
     final boolean = validator;
     if (boolean == true) {
       homeState = LoggedInState();
     } else {
-      homeState = LoginState();
+      homeState = LoginPageState();
     }
   }
 

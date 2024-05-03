@@ -2,8 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_application/src/home/domain/keys/keys.dart';
 import 'package:flutter_application/src/home/domain/states/home_state.dart';
 import 'package:flutter_application/src/home/domain/stores/home_stores.dart';
-import 'package:flutter_application/src/home/domain/usecases/logincase.dart';
-import 'package:flutter_application/src/home/domain/usecases/register_validators.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 
@@ -16,12 +14,6 @@ class LoginWidget extends StatefulWidget {
 
 class _LoginWidgetState extends State<LoginWidget> {
   final _homeStore = Modular.get<HomeStore>();
-
-  final controllerEmail = TextEditingController();
-
-  final controllerPassword = TextEditingController();
-
-  final _turnLogged = Modular.get<ILoginValidator>();
 
   @override
   Widget build(BuildContext context) {
@@ -44,7 +36,7 @@ class _LoginWidgetState extends State<LoginWidget> {
                     return Column(children: [
                       const SizedBox(height: 10),
                       Visibility(
-                          visible: _homeStore.homeState is RegisterState,
+                          visible: _homeStore.homeState is RegisterPageState,
                           child: TextFormField(
                             decoration: const InputDecoration(
                               labelText: 'Nome Completo',
@@ -55,7 +47,7 @@ class _LoginWidgetState extends State<LoginWidget> {
                     ]);
                   }),
                   TextFormField(
-                    controller: controllerEmail,
+                    controller: _homeStore.controllerEmail,
                     decoration: const InputDecoration(
                       labelText: 'E-mail',
                       border: OutlineInputBorder(),
@@ -65,7 +57,7 @@ class _LoginWidgetState extends State<LoginWidget> {
                   const SizedBox(height: 10),
                   Observer(builder: (_) {
                     return TextFormField(
-                      controller: controllerPassword,
+                      controller: _homeStore.controllerPassword,
                       obscureText: _homeStore.isObscure,
                       decoration: InputDecoration(
                         labelText: 'Senha',
@@ -86,7 +78,7 @@ class _LoginWidgetState extends State<LoginWidget> {
                     return Column(children: [
                       const SizedBox(height: 10),
                       Visibility(
-                          visible: _homeStore.homeState is RegisterState,
+                          visible: _homeStore.homeState is RegisterPageState,
                           child: TextFormField(
                             key: formPasswordLoginKey,
                             obscureText: _homeStore.isObscure,
@@ -109,26 +101,14 @@ class _LoginWidgetState extends State<LoginWidget> {
                   Observer(builder: (_) {
                     return ElevatedButton(
                         onPressed: () {
-                          try {
-                            _turnLogged.validateLoginCredentials(
-                                email: controllerEmail.text,
-                                password: controllerPassword.text);
-                            _homeStore.turnLogged();
-                          } catch (e) {
-                            // ignore: avoid_print
-                            print('erro');
-                          }
+                          _homeStore.turnLogged();
                           if (_homeStore.homeState is LoggedInState) {
                             Modular.to.navigate('/feed');
-                            // ignore: avoid_print
-                            print('Entrou no navigate');
                           } else {
                             _homeStore.turnLogin();
-                            // ignore: avoid_print
-                            print('entrou no else');
                           }
                         },
-                        child: Text((_homeStore.homeState is LoginState)
+                        child: Text((_homeStore.homeState is LoginPageState)
                             ? 'Entrar'
                             : 'Cadastrar'));
                   }),
@@ -138,11 +118,11 @@ class _LoginWidgetState extends State<LoginWidget> {
                   Observer(builder: (_) {
                     return TextButton(
                         onPressed: () {
-                          _homeStore.homeState is LoginState
+                          _homeStore.homeState is LoginPageState
                               ? _homeStore.turnRegister()
                               : _homeStore.turnLogin();
                         },
-                        child: Text((_homeStore.homeState is LoginState)
+                        child: Text((_homeStore.homeState is LoginPageState)
                             ? 'Não tem uma conta? Registre-se!'
                             : 'Já tem uma conta? Cadastre-se!'));
                   })

@@ -1,7 +1,5 @@
 import 'package:flutter_application/src/feed/module/feed_module.dart';
 import 'package:flutter_application/src/home/data/repositories/home_repository_impl.dart';
-import 'package:flutter_application/src/home/data/user_model/users_model.dart';
-import 'package:flutter_application/src/home/domain/entities/home_model.dart';
 import 'package:flutter_application/src/home/domain/repositories/home_repository.dart';
 import 'package:flutter_application/src/home/domain/stores/home_stores.dart';
 import 'package:flutter_application/src/home/domain/usecases/logincase.dart';
@@ -12,11 +10,10 @@ import 'package:flutter_modular/flutter_modular.dart';
 class HomeModule extends Module {
   @override
   void binds(i) {
-    i.addSingleton(HomeStore.new);
-    i.addSingleton<IValidator>(Validator.new);
-    i.addSingleton<User>(UserModel.new);
-    i.addSingleton<IHomeRepository>(HomeRepositoryImpl.new);
-    i.addSingleton<ILoginValidator>(LoginValidator.new);
+    i.add<IValidator>(Validator.new);
+    i.add<IHomeRepository>(HomeRepositoryImpl.new);
+    i.add<ILoginValidator>(LoginValidator.new);
+    i.add(HomeStore.new);
   }
 
   @override

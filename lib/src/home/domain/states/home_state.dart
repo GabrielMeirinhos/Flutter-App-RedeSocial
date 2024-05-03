@@ -1,8 +1,8 @@
 abstract class HomeState {}
 
-class LoginState implements HomeState {}
+class LoginPageState implements HomeState {}
 
-class RegisterState implements HomeState {}
+class RegisterPageState implements HomeState {}
 
 class LoadingHomeState implements HomeState {}
 

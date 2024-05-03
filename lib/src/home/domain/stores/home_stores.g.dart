@@ -121,6 +121,28 @@ mixin _$HomeStore on _HomeStore, Store {
   }
 
   @override
+  String? validatePassword(String? value) {
+    final _$actionInfo = _$_HomeStoreActionController.startAction(
+        name: '_HomeStore.validatePassword');
+    try {
+      return super.validatePassword(value);
+    } finally {
+      _$_HomeStoreActionController.endAction(_$actionInfo);
+    }
+  }
+
+  @override
+  String? validateEmail(String? value) {
+    final _$actionInfo = _$_HomeStoreActionController.startAction(
+        name: '_HomeStore.validateEmail');
+    try {
+      return super.validateEmail(value);
+    } finally {
+      _$_HomeStoreActionController.endAction(_$actionInfo);
+    }
+  }
+
+  @override
   String toString() {
     return '''
 homeState: ${homeState},
