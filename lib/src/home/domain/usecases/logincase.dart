@@ -9,7 +9,7 @@ abstract class ILoginValidator {
 }
 
 class LoginValidator implements ILoginValidator {
-  final users = Modular.get<Users>();
+  final users = Modular.get<UserModel>();
   final store = Modular.get<HomeStore>();
 
   List<User> userList = [];

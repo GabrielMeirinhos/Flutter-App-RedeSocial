@@ -13,6 +13,7 @@ class GetPostUseCase {
       return list.take(15).toList();
     } catch (e) {
       // Trata qualquer erro ao buscar os posts
+      // ignore: avoid_print
       print('Erro ao buscar posts: $e');
       return []; // Retorna uma lista vazia em caso de erro
     }

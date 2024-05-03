@@ -117,14 +117,16 @@ class _LoginWidgetState extends State<LoginWidget> {
                                 password: controllerPassword.text);
                             _homeStore.turnLogged();
                           } catch (e) {
+                            // ignore: avoid_print
                             print('erro');
                           }
-
                           if (_homeStore.homeState is LoggedInState) {
                             Modular.to.navigate('/feed');
+                            // ignore: avoid_print
                             print('Entrou no navigate');
                           } else {
                             _homeStore.turnLogin();
+                            // ignore: avoid_print
                             print('entrou no else');
                           }
                         },

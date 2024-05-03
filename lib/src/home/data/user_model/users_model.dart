@@ -1,28 +1,20 @@
 import 'package:flutter_application/src/home/domain/entities/home_model.dart';
+// ignore: depend_on_referenced_packages
+import 'package:json_annotation/json_annotation.dart';
 
-class Users {
-  List<User> users = [
-    User(
-      id: 1,
-      name: 'Gabriel',
-      email: 'gabriel@gmail.com',
-      password: 'gabriel',
-    ),
-    User(
-      id: 2,
-      name: 'João',
-      email: 'joao@gmail.com',
-      password: 'joao',
-    ),
-    User(
-      id: 3,
-      name: 'Pedro',
-      email: 'pedro@gmail.com',
-      password: 'pedro',
-    )
-  ];
+part 'users_model.g.dart';
 
-  List<User> getListUser() {
-    return users;
-  }
+@JsonSerializable()
+class UserModel extends User {
+  UserModel(
+      {required super.id,
+      required super.name,
+      required super.email,
+      required super.password});
+
+  factory UserModel.fromJson(Map<String, dynamic> json) =>
+      _$UserModelFromJson(json);
+  get toList => null;
+
+  Map<String, dynamic> toJson() => _$UserModelToJson(this);
 }
