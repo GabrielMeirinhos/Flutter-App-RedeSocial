@@ -17,11 +17,9 @@ class LoginWidget extends StatefulWidget {
 class _LoginWidgetState extends State<LoginWidget> {
   final _homeStore = Modular.get<HomeStore>();
 
-  final _validator = Modular.get<IValidator>();
+  final controllerEmail = TextEditingController();
 
-  final controllerEmail = Modular.get<TextEditingController>();
-
-  final controllerPassword = Modular.get<TextEditingController>();
+  final controllerPassword = TextEditingController();
 
   final _turnLogged = Modular.get<ILoginValidator>();
 
@@ -62,7 +60,7 @@ class _LoginWidgetState extends State<LoginWidget> {
                       labelText: 'E-mail',
                       border: OutlineInputBorder(),
                     ),
-                    validator: (value) => _validator.validateEmail(value),
+                    validator: (value) => _homeStore.validateEmail(value),
                   ),
                   const SizedBox(height: 10),
                   Observer(builder: (_) {
@@ -81,7 +79,7 @@ class _LoginWidgetState extends State<LoginWidget> {
                           },
                         ),
                       ),
-                      validator: (value) => _validator.validatePassword(value),
+                      validator: (value) => _homeStore.validatePassword(value),
                     );
                   }),
                   Observer(builder: (_) {

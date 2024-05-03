@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_application/src/home/domain/states/home_state.dart';
 import 'package:flutter_application/src/home/domain/usecases/logincase.dart';
+import 'package:flutter_application/src/home/domain/usecases/register_validators.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:mobx/mobx.dart';
 
@@ -13,6 +14,7 @@ abstract class _HomeStore with Store {
   final loginValidator = Modular.get<ILoginValidator>();
   final controllerEmail = Modular.get<TextEditingController>();
   final controllerPassword = Modular.get<TextEditingController>();
+  final _validator = Modular.get<IValidator>();
 
   @observable
   HomeState homeState = LoginState();
@@ -50,5 +52,15 @@ abstract class _HomeStore with Store {
   @action
   makeVisible() {
     isObscure = !isObscure;
+  }
+
+  @action
+  String? validatePassword(String? value) {
+    return _validator.validatePassword(value);
+  }
+
+  @action
+  String? validateEmail(String? value) {
+    return _validator.validateEmail(value);
   }
 }

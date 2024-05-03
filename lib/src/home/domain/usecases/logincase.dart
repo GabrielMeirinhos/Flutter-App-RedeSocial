@@ -1,5 +1,5 @@
-import 'package:flutter_application/src/home/data/user_model/users_model.dart';
 import 'package:flutter_application/src/home/domain/entities/home_model.dart';
+import 'package:flutter_application/src/home/domain/repositories/home_repository.dart';
 import 'package:flutter_application/src/home/domain/stores/home_stores.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 
@@ -9,7 +9,7 @@ abstract class ILoginValidator {
 }
 
 class LoginValidator implements ILoginValidator {
-  final users = Modular.get<UserModel>();
+  final users = Modular.get<IHomeRepository>();
   final store = Modular.get<HomeStore>();
 
   List<User> userList = [];
@@ -17,7 +17,7 @@ class LoginValidator implements ILoginValidator {
   @override
   void validateLoginCredentials(
       {required String email, required String password}) {
-    userList = users.getListUser();
+    userList = users.getUsers();
     for (final user in userList) {
       if (email == user.email && password == user.password) {
         store.validator = true;
