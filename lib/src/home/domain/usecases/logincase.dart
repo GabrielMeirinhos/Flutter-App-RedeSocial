@@ -5,6 +5,7 @@ import 'package:flutter_modular/flutter_modular.dart';
 abstract class ILoginValidator {
   bool validateLoginCredentials(
       {required String email, required String password});
+  int getUserId({required String email});
 }
 
 class LoginValidator implements ILoginValidator {
@@ -23,5 +24,18 @@ class LoginValidator implements ILoginValidator {
       }
     }
     return loginValidator;
+  }
+
+  @override
+  int getUserId({required String email}) {
+    int userId = -1;
+    userList = users.getUsers();
+    for (final user in userList) {
+      if (email == user.email) {
+        userId = user.id;
+        break;
+      }
+    }
+    return userId;
   }
 }

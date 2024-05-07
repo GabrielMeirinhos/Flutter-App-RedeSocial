@@ -42,7 +42,8 @@ abstract class _HomeStore with Store {
 
   @action
   turnLogged() {
-    homeState = LoadingHomeState();
+    homeState = LoadingHomeState(
+        id: _loginValidator.getUserId(email: controllerEmail.text));
     try {
       validator = _loginValidator.validateLoginCredentials(
           email: controllerEmail.text, password: controllerPassword.text);

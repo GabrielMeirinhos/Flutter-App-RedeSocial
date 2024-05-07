@@ -4,8 +4,10 @@ import 'package:flutter_application/src/feed/data/repositories/post_repository_i
 import 'package:flutter_application/src/feed/domain/repositories/feed_repositore.dart';
 import 'package:flutter_application/src/feed/domain/stores/feed_stores.dart';
 import 'package:flutter_application/src/feed/domain/usecases/get_post.dart';
+import 'package:flutter_application/src/feed/domain/usecases/theme_mode.dart';
 import 'package:flutter_application/src/feed/ui/feed_page.dart';
 import 'package:flutter_modular/flutter_modular.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class FeedModule extends Module {
   @override
@@ -15,6 +17,9 @@ class FeedModule extends Module {
 
   @override
   void binds(Injector i) {
+    i.add(SharedPreferences.getInstance);
+    i.addSingleton(PageTheme.new);
+
     i.addSingleton<IPostSource>(PostSource.new);
     i.addSingleton<IFeedRepository>(PostRepositoryImpl.new);
     i.addSingleton(GetPostUseCase.new);
