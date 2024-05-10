@@ -1,3 +1,4 @@
+import 'package:flutter_application/core/core_module/core_module.dart';
 import 'package:flutter_application/src/feed/module/feed_module.dart';
 import 'package:flutter_application/src/home/data/repositories/home_repository_impl.dart';
 import 'package:flutter_application/src/home/domain/repositories/home_repository.dart';
@@ -8,6 +9,10 @@ import 'package:flutter_application/src/home/domain/usecases/register_validators
 import 'package:flutter_modular/flutter_modular.dart';
 
 class HomeModule extends Module {
+  @override
+  List<Module> get imports => [
+        CoreModule(),
+      ];
   @override
   void binds(i) {
     i.add<IValidator>(Validator.new);

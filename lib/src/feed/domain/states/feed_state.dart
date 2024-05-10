@@ -20,9 +20,3 @@ class LoadingState implements FeedState {}
 class InicialState implements FeedState {}
 
 class EmptyState implements FeedState {}
-
-abstract class ThemeState {}
-
-class DarkState implements ThemeState {}
-
-class WhiteState implements ThemeState {}

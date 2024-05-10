@@ -1,4 +1,4 @@
-import 'package:flutter_application/src/feed/data/localdata/local_data.dart';
+import 'package:flutter_application/core/data/localdata/local_data.dart';
 
 class PageTheme {
   Future<void> getChangeTheme() async {
@@ -7,3 +7,4 @@ class PageTheme {
     await LocalDate.setThemeMode(mode: newMode);
   }
 }
+// 

@@ -25,22 +25,6 @@ mixin _$FeedStore on _FeedStore, Store {
     });
   }
 
-  late final _$themeStateAtom =
-      Atom(name: '_FeedStore.themeState', context: context);
-
-  @override
-  ThemeState get themeState {
-    _$themeStateAtom.reportRead();
-    return super.themeState;
-  }
-
-  @override
-  set themeState(ThemeState value) {
-    _$themeStateAtom.reportWrite(value, super.themeState, () {
-      super.themeState = value;
-    });
-  }
-
   late final _$listPostAtom =
       Atom(name: '_FeedStore.listPost', context: context);
 
@@ -66,19 +50,10 @@ mixin _$FeedStore on _FeedStore, Store {
         _$getPostAsyncAction.run(() => super.getPost()));
   }
 
-  late final _$changeThemeStoresAsyncAction =
-      AsyncAction('_FeedStore.changeThemeStores', context: context);
-
-  @override
-  Future changeThemeStores() {
-    return _$changeThemeStoresAsyncAction.run(() => super.changeThemeStores());
-  }
-
   @override
   String toString() {
     return '''
 feedState: ${feedState},
-themeState: ${themeState},
 listPost: ${listPost}
     ''';
   }

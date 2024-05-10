@@ -1,4 +1,4 @@
-import 'package:flutter_application/src/feed/data/localdata/shared_keys.dart';
+import 'package:flutter_application/core/data/localdata/shared_keys.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class LocalDate {
