@@ -12,7 +12,7 @@ part 'core_stores.g.dart';
 class CoreStores = _CoreStores with _$CoreStores;
 
 abstract class _CoreStores with Store {
-  PageTheme _configs = Modular.get<PageTheme>();
+  PageTheme configs = Modular.get<PageTheme>();
 
   @observable
   Future<bool> theme = LocalDate.getThemeMode();
@@ -25,7 +25,7 @@ abstract class _CoreStores with Store {
 
   @action
   Future<void> changeThemeStores() async {
-    await _configs.getChangeTheme();
+    await configs.getChangeTheme();
     getStateTheme = await LocalDate.getThemeMode() ? WhiteState() : DarkState();
     getThemeData();
   }
@@ -33,7 +33,6 @@ abstract class _CoreStores with Store {
   @action
   void getThemeData() {
     if (getStateTheme is WhiteState) {
-      print('object');
       themeDataStores = ThemeData.light();
     } else {
       themeDataStores = ThemeData.dark();
