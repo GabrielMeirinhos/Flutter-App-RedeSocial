@@ -13,6 +13,7 @@ class _ProfilePageState extends State<ProfilePage>
     with SingleTickerProviderStateMixin {
   final _coreStores = Modular.get<CoreStores>();
   late TabController _tabController;
+
   @override
   void initState() {
     super.initState();
@@ -39,7 +40,7 @@ class _ProfilePageState extends State<ProfilePage>
               onPressed: () => Modular.to.navigate('/feed'),
               icon: const Icon(Icons.home),
               color: Colors.white,
-            )
+            ),
           ],
         ),
         bottomNavigationBar: Container(
@@ -61,15 +62,50 @@ class _ProfilePageState extends State<ProfilePage>
         body: TabBarView(
           controller: _tabController,
           children: [
-            const Column(
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: [],
+            SingleChildScrollView(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.center,
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  const SizedBox(height: 20),
+                  const CircleAvatar(
+                    radius: 50,
+                    backgroundImage: NetworkImage(
+                        'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRyHz2RUIU6oEK1rS35kij_syV8BCleaJ2tZEcuCv75oA&s'),
+                  ),
+                  const SizedBox(height: 10),
+                  const Text(
+                    'Nome do Usuário',
+                    style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
+                  ),
+                  const SizedBox(height: 20),
+                  GridView.builder(
+                    padding: const EdgeInsets.all(10),
+                    gridDelegate:
+                        const SliverGridDelegateWithFixedCrossAxisCount(
+                      crossAxisCount: 3,
+                      crossAxisSpacing: 10,
+                      mainAxisSpacing: 10,
+                    ),
+                    itemCount: 9, // Número de imagens per perfil TODO:
+                    shrinkWrap: true,
+                    physics: const NeverScrollableScrollPhysics(),
+                    itemBuilder: (context, index) {
+                      // while(/*TODO: StateListFotosPorPerfil*/ )
+                      return Image.network(
+                        'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRyHz2RUIU6oEK1rS35kij_syV8BCleaJ2tZEcuCv75oA&s',
+                        fit: BoxFit.cover,
+                      );
+                    },
+                  ),
+                ],
+              ),
             ),
-            Container(
-              child: const Text('Buscar'),
+            const Center(
+              child: Text('Buscar'),
             ),
-            Container(
-              child: const Text('Adicionar foto'),
+            const Center(
+              child: Text('Adicionar foto'),
             ),
           ],
         ),

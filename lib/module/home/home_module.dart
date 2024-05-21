@@ -1,4 +1,4 @@
-import 'package:flutter_application/core/core_module/core_module.dart';
+import 'package:flutter_application/core/core_module.dart';
 import 'package:flutter_application/module/feed/feed_module.dart';
 import 'package:flutter_application/module/home/data/repositories/home_repository_impl.dart';
 import 'package:flutter_application/module/home/domain/repositories/home_repository.dart';
